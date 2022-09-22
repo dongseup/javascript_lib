@@ -1,0 +1,136 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery menu ex</title>
+    <script
+  src="https://code.jquery.com/jquery-3.6.1.min.js"
+  integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+  crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.css" rel="stylesheet"/>
+  <style>
+    a {
+        text-decoration: none;
+        color: #000;
+        font-size: 15px;
+    }
+    .container {
+        width: 500px;
+        margin: 0 auto;
+    }
+    .menu .menuItem a {
+        display: block;
+        text-align: center;
+        padding: 10px;
+        border: 1px solid #ccc;
+        margin-top: -1px;
+    }
+    .menu .menuItem > a {
+        background-color: #063970;
+        color: #ffffff;
+    }
+    .menu .menuItem .subMenu {
+        overflow: hidden;
+        max-height: 0;
+        transition: .3s ease;
+    }
+    .menu .menuItem .subMenu .subMenuItem a {
+        background-color: #2596be;
+        color: #cccccc;
+    }
+
+    /* on */
+    .menu .menuItem.on > a{
+        color: #B3A39C;
+    }
+    .menu .menuItem.on .subMenu {
+        max-height: 100%;
+    }
+  </style>
+</head>
+<body>
+    <div class="container">
+        <!-- menu -->
+        <ul class="menu">
+            <li class="menuItem">
+                <a href="#">메뉴1</a>
+                <ul class="subMenu">
+                    <li class="subMenuItem"><a href="#">메뉴1-1</a></li>
+                    <li class="subMenuItem"><a href="#">메뉴1-2</a></li>
+                    <li class="subMenuItem"><a href="#">메뉴1-3</a></li>
+                </ul>
+            </li>
+            <li class="menuItem">
+                <a href="#">메뉴2</a>
+                <ul class="subMenu">
+                    <li class="subMenuItem"><a href="#">메뉴2-1</a></li>
+                    <li class="subMenuItem"><a href="#">메뉴2-2</a></li>
+                    <li class="subMenuItem"><a href="#">메뉴2-3</a></li>
+                    <li class="subMenuItem"><a href="#">메뉴2-4</a></li>
+                </ul>
+            </li>
+            <li class="menuItem">
+                <a href="#">메뉴3</a>
+                <ul class="subMenu">
+                    <li class="subMenuItem"><a href="#">메뉴3-1</a></li>
+                    <li class="subMenuItem"><a href="#">메뉴3-2</a></li>
+                    <li class="subMenuItem"><a href="#">메뉴3-3</a></li>
+                    <li class="subMenuItem"><a href="#">메뉴3-3</a></li>
+                    <li class="subMenuItem"><a href="#">메뉴3-3</a></li>
+                </ul>
+            </li>
+        </ul>
+        <!-- // menu -->
+    </div>
+<script>
+    // 즉시실행
+    // (function ($) {
+    //     var menuItem = $('.menuItem');
+
+    //     menuItem.on('click', function() {
+    //         menuItem.removeClass('on');
+    //         $(this).addClass('on');
+    //     });
+    // })(jQuery)
+
+     // 즉시실행
+     (function ($) {
+        var menu = $('.menu');
+        var menuItem = $('.menuItem');
+        var overItem = null;
+        var clickItem = null;
+
+        menuItem.on('mouseenter', function() {
+            if (overItem !== null) {
+                overItem.removeClass('on');
+            }
+
+            if (clickItem !== null) {
+                clickItem.removeClass('on');
+            }
+
+            $(this).addClass('on');
+
+            overItem = $(this);
+        });
+
+
+        menu.on('mouseleave', function() {
+            if (overItem !== null) {
+                overItem.removeClass('on');
+            }
+            if (clickItem !== null) {
+                clickItem.addClass('on');
+            }
+        });
+
+        menuItem.on('click', function() {
+            clickItem = overItem;
+        });
+
+    })(jQuery)
+    
+</script>
+</body>
+</html>
