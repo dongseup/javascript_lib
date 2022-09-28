@@ -80,6 +80,7 @@
             width: 25%;
             display: inline-block;
             text-align: center;
+            vertical-align: top;
         }
         .header .inner .navigation .main-nav .main-nav-item > a {
             display: inline-flex;
@@ -95,7 +96,7 @@
             transition: .3s;
             transition-timing-function: cubic-bezier(0, 0.58, 0.42, 0.98);
         }
-        .header .inner .navigation .main-nav .main-nav-item:hover > a {
+        .header .inner .navigation .main-nav .main-nav-item > a {
             position: relative;
         }
         .header .inner .navigation .main-nav .main-nav-item:hover > a::after {
@@ -113,6 +114,8 @@
         }
         .header .inner .navigation .main-nav .main-nav-item .sub-nav {
             padding: 20px 0;
+            height: 320px;
+            box-sizing: border-box;
         }
         .header .inner .navigation .main-nav .main-nav-item .sub-nav .sub-nav-item > a {
             display: block;
@@ -198,9 +201,6 @@
                         <ul class="sub-nav">
                             <li class="sub-nav-item"><a href="#">한솔로지스유</a></li>
                             <li class="sub-nav-item"><a href="#">CEO인사말</a></li>
-                            <li class="sub-nav-item"><a href="#">연혁</a></li>
-                            <li class="sub-nav-item"><a href="#">안전보건방침</a></li>
-                            <li class="sub-nav-item"><a href="#">오시는 길</a></li>
                         </ul>
                     </li><!--
                     --><li class="main-nav-item">
@@ -224,37 +224,41 @@
     
 
     <script>
-        var header = null;
-        var navigation = null;
+        (function($$){
+            var header = null;
+            var navigation = null;
 
-        function init() {
-            header = $('.header');
-            navigation = $('.navigation');
-        }
-        
-        function initEventListener() {
-            navigation.on('mouseenter', function() {
-                header.addClass('on');
+            function init() {
+                header = $$('.header');
+                navigation = $$('.navigation');
+            }
+            
+            function initEventListener() {
+                navigation.on('mouseenter', function() {
+                    header.addClass('on');
+                });
+                navigation.on('mouseleave', function() {
+                    header.removeClass('on');
+                });
+                navigation.on('mousewheel', function(e) {
+                    e.preventDefault();
+                })
+                $$(window).on('scroll', function() {
+                    console.log($$(this).scrollTop());
+                    if ($$(this).scrollTop() > 100) {
+                        header.addClass('scroll');
+                    } else {
+                        header.removeClass('scroll');
+                    }
+                });
+            }
+            
+            $$(document).ready(function() {
+                init();
+                initEventListener();
             });
-            navigation.on('mouseleave', function() {
-                header.removeClass('on');
-            });
-            navigation.on('mousewheel', function() {
-                return false;
-            })
-            $(window).on('scroll', function() {
-                if ($(this).scrollTop() > 100) {
-                    header.addClass('scroll');
-                } else {
-                    header.removeClass('scroll');
-                }
-            });
-        }
-        
-        $(document).ready(function() {
-            init();
-            initEventListener();
-        });
+        })(jQuery);
+
     </script>
 </body>
 </html>
