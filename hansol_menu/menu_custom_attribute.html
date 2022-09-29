@@ -99,7 +99,7 @@
         .header .inner .navigation .main-nav .main-nav-item > a {
             position: relative;
         }
-        .header .inner .navigation .main-nav .main-nav-item:hover > a::after {
+        .header .inner .navigation .main-nav .main-nav-item:hover > a::after, .header .inner .navigation .main-nav .main-nav-item.active > a::after {
             content:"";
             width: 100%;
             height: 2px;
@@ -121,7 +121,7 @@
             display: block;
             padding: 10px 0;
         }
-        .header .inner .navigation .main-nav .main-nav-item .sub-nav .sub-nav-item > a:hover {
+        .header .inner .navigation .main-nav .main-nav-item .sub-nav .sub-nav-item > a:hover, .header .inner .navigation .main-nav .main-nav-item .sub-nav .sub-nav-item.active > a {
             color: #26ab1c;
             transition: .3s ease;
         }
@@ -156,6 +156,7 @@
         .header.scroll .inner .navigation .main-nav .main-nav-item > a {
             font-size: 16px;
         }
+            
 
 
         @media (min-width: 320px) and (max-width: 900px) {
@@ -176,41 +177,40 @@
             <h1><img src="http://hansollogisyou.com/uploads/media/logo.svg" alt="hansol - 한솔로지스유"/></h1>
             <div class="navigation">
                 <ul class="main-nav">
-                    <li class="main-nav-item">
+                    <li class="main-nav-item" data-key="company">
                         <a href="#">회사소개</a>
                         <ul class="sub-nav">
-                            <li class="sub-nav-item"><a href="#">한솔로지스유</a></li>
-                            <li class="sub-nav-item"><a href="#">CEO인사말</a></li>
-                            <li class="sub-nav-item"><a href="#">연혁</a></li>
-                            <li class="sub-nav-item"><a href="#">안전보건방침</a></li>
-                            <li class="sub-nav-item"><a href="#">오시는 길</a></li>
+                            <li class="sub-nav-item" data-key=""><a href="#">한솔로지스유</a></li>
+                            <li class="sub-nav-item" data-key=""><a href="#">CEO인사말</a></li>
+                            <li class="sub-nav-item" data-key=""><a href="#">연혁</a></li>
+                            <li class="sub-nav-item" data-key=""><a href="#">안전보건방침</a></li>
+                            <li class="sub-nav-item" data-key=""><a href="#">오시는 길</a></li>
                         </ul>
                     </li><!--
-                    --><li class="main-nav-item">
+                    --><li class="main-nav-item" data-key="securitySolution">
                         <a href="#">사업영역</a>
                         <ul class="sub-nav">
-                            <li class="sub-nav-item"><a href="#">한솔로지스유</a></li>
-                            <li class="sub-nav-item"><a href="#">CEO인사말</a></li>
-                            <li class="sub-nav-item"><a href="#">연혁</a></li>
-                            <li class="sub-nav-item"><a href="#">안전보건방침</a></li>
-                            <li class="sub-nav-item"><a href="#">오시는 길</a></li>
+                            <li class="sub-nav-item" data-key="neorigin"><a href="#">한솔로지스유</a></li>
+                            <li class="sub-nav-item" data-key="trendmicro"><a href="#">CEO인사말</a></li>
+                            <li class="sub-nav-item" data-key="imperva"><a href="#">연혁</a></li>
+                            <li class="sub-nav-item" data-key="checkPoint"><a href="#">안전보건방침</a></li>
                         </ul>
                     </li><!--
-                    --><li class="main-nav-item">
+                    --><li class="main-nav-item" data-key="network">
                         <a href="#">홍보센터</a>
                         <ul class="sub-nav">
-                            <li class="sub-nav-item"><a href="#">한솔로지스유</a></li>
-                            <li class="sub-nav-item"><a href="#">CEO인사말</a></li>
+                            <li class="sub-nav-item" data-key=""><a href="#">한솔로지스유</a></li>
+                            <li class="sub-nav-item" data-key=""><a href="#">CEO인사말</a></li>
                         </ul>
                     </li><!--
-                    --><li class="main-nav-item">
+                    --><li class="main-nav-item" data-key="consulting">
                         <a href="#">고객센터</a>
                         <ul class="sub-nav">
-                            <li class="sub-nav-item"><a href="#">한솔로지스유</a></li>
-                            <li class="sub-nav-item"><a href="#">CEO인사말</a></li>
-                            <li class="sub-nav-item"><a href="#">연혁</a></li>
-                            <li class="sub-nav-item"><a href="#">안전보건방침</a></li>
-                            <li class="sub-nav-item"><a href="#">오시는 길</a></li>
+                            <li class="sub-nav-item" data-key=""><a href="#">한솔로지스유</a></li>
+                            <li class="sub-nav-item" data-key=""><a href="#">CEO인사말</a></li>
+                            <li class="sub-nav-item" data-key=""><a href="#">연혁</a></li>
+                            <li class="sub-nav-item" data-key=""><a href="#">안전보건방침</a></li>
+                            <li class="sub-nav-item" data-key=""><a href="#">오시는 길</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -221,98 +221,96 @@
         </div>
     </div>
 
-    
-
     <script>
         var menuData = [
             {
-                name: 'COMPANY',
+                title: 'COMPANY',
                 url: '/company/about',
-                key: '0',
+                key: 'company',
                 children: [
                     {
-                        name: '회사소개',
+                        title: '회사소개',
                         url: '/company/about',
-                        key: '0-0',
+                        key: 'about',
                     },
                     {
-                        name: 'HISTORY',
+                        title: 'HISTORY',
                         url: '/company/history',
-                        key: '0-1',
+                        key: 'history',
                     },
                     {
-                        name: '자료실',
+                        title: '자료실',
                         url: '/company/download',
-                        key: '0-2',
+                        key: 'download',
                     },
                     {
-                        name: 'CONTACT US',
+                        title: 'CONTACT US',
                         url: '/company/contact',
-                        key: '0-3',
+                        key: 'contact',
                     }
                 ]
             },
             {
-                name: '보안솔루션',
+                title: '보안솔루션',
                 url: '/securitySolution/neorigin',
-                key: '1',
+                key: 'securitySolution',
                 children: [
                     {
-                        name: 'Neorigin',
+                        title: 'Neorigin',
                         url: '/securitySolution/neorigin',
-                        key: '1-0',
+                        key: 'neorigin',
                     },
                     {
-                        name: 'Trend Micro',
+                        title: 'Trend Micro',
                         url: '/securitySolution/trendmicro',
-                        key: '1-1',
+                        key: 'trendmicro',
                     },
                     {
-                        name: 'Imperva',
+                        title: 'Imperva',
                         url: '/securitySolution/imperva',
-                        key: '1-2',
+                        key: 'imperva',
                     },
                     {
-                        name: 'CheckPoint',
+                        title: 'CheckPoint',
                         url: '/securitySolution/checkPoint',
-                        key: '1-3',
+                        key: 'checkPoint',
                     }
                 ]
             },
             {
-                name: '네트워크',
-                url: '/securitySolution/neorigin',
-                key: '2',
+                title: '네트워크',
+                url: '/network/cisco',
+                key: 'network',
                 children: [
                     {
-                        name: 'Neorigin',
-                        url: '/securitySolution/neorigin',
-                        key: '2-0',
+                        title: 'CISCO',
+                        url: '/network/cisco',
+                        key: 'cisco',
                     }
                 ]
             },
             {
-                name: '컨설팅',
-                url: '/securitySolution/neorigin',
-                key: '3',
+                title: '컨설팅',
+                url: '/consulting/information-security',
+                key: 'consulting',
                 children: [
                     {
-                        name: 'Neorigin',
-                        url: '/securitySolution/neorigin',
-                        key: '3-0',
+                        title: '정보보안컨설팅',
+                        url: '/consulting/information-security',
+                        key: 'information-security',
                     }
                 ]
             }
         ];
 
 
-        (function($$){
+        (function($){
             var header = null;
             var navigation = null;
 
             function init() {
-                header = $$('.header');
-                navigation = $$('.navigation');
+                header = $('.header');
+                navigation = $('.navigation');
             }
             
             function initEventListener() {
@@ -325,19 +323,47 @@
                 navigation.on('mousewheel', function(e) {
                     e.preventDefault();
                 })
-                $$(window).on('scroll', function() {
-                    console.log($$(this).scrollTop());
-                    if ($$(this).scrollTop() > 100) {
+                $(window).on('scroll', function() {
+                    console.log($(this).scrollTop());
+                    if ($(this).scrollTop() > 100) {
                         header.addClass('scroll');
                     } else {
                         header.removeClass('scroll');
                     }
                 });
             }
+
+            function getURL() {
+                // var urlArr = window.location.href.split('/').slice(3);
+                var urlArr = ['securitySolution', 'neorigin']
+                
+                return urlArr;
+            }
+
+            function activeMenu(arr) {
+                var menuArr = arr;
+                var mainNavItem = $('.main-nav-item');
+                var subNavItem = $('.sub-nav-item');
+
+                setActiveClass(menuArr, mainNavItem);
+                setActiveClass(menuArr, subNavItem);
+            }
+
+            function setActiveClass(arr, target) {
+                arr.forEach(arrItem => {
+                    $.each(target, function(index, item) {
+                        var dataAttr = $(this).data("key");
+                        if (dataAttr === arrItem) {
+                            $(this).addClass('active')
+                        }
+                    });
+                });
+            }
             
-            $$(document).ready(function() {
+            $(document).ready(function() {
                 init();
                 initEventListener();
+                activeMenu(getURL());
             });
         })(jQuery);
         
