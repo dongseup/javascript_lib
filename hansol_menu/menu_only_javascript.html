@@ -24,7 +24,7 @@
             transition-timing-function: cubic-bezier(0, 0.58, 0.42, 0.98);
             box-shadow: 2px 2px 10px rgb(0 0 0 / 10%);
         }
-        .header .inner:after{
+        /* .header .inner:after{
             content:"";
             height: 1px;
             width: 100%;
@@ -32,7 +32,7 @@
             position: absolute;
             bottom: 0;
             left: 0;
-        }
+        } */
         .header .inner {
             position: relative;
             height: 100px;
@@ -41,6 +41,7 @@
             padding-left: 12px;
             transition: .3s;
             transition-timing-function: cubic-bezier(0, 0.58, 0.42, 0.98);
+            border-bottom: 1px solid rgb(0 0 0 / 10%);
         }
         .header .inner h1 {
             width: 140px;
@@ -99,16 +100,17 @@
         .header .inner .navigation .main-nav .main-nav-item > a {
             position: relative;
         }
-        .header .inner .navigation .main-nav .main-nav-item:hover > a::after {
+       
+        .header .inner .navigation .main-nav .main-nav-item.on > a::after {
             content:"";
             width: 100%;
             height: 2px;
             background-color: #26ab1c;
             position: absolute;
             left: 0;
-            bottom: 1px;
+            bottom: 0;
         }
-        .header .inner .navigation .main-nav .main-nav-item:hover .sub-nav {
+        .header .inner .navigation .main-nav .main-nav-item.on .sub-nav {
             transition: .3s ease;
             background-color: #eee;
         }
@@ -121,7 +123,7 @@
             display: block;
             padding: 10px 0;
         }
-        .header .inner .navigation .main-nav .main-nav-item .sub-nav .sub-nav-item > a:hover {
+        .header .inner .navigation .main-nav .main-nav-item .sub-nav .sub-nav-item.on > a {
             color: #26ab1c;
             transition: .3s ease;
         }
@@ -133,6 +135,9 @@
         }
         .header.on .inner .navigation .main-nav .main-nav-item > a {
             color: #000000;
+        }
+        .header.on .inner .navigation .main-nav .main-nav-item.on > a {
+            color: #26ab1c;
         }
         .header.on .inner .navigation .main-nav .main-nav-item > a:hover {
             color: #26ab1c;
@@ -171,7 +176,7 @@
 </head>
 <body>
     <!-- addclass : on -->
-    <div class="header">
+    <div class="header on">
         <div class="inner">
             <h1><img src="http://hansollogisyou.com/uploads/media/logo.svg" alt="hansol - 한솔로지스유"/></h1>
             <div class="navigation">
@@ -306,36 +311,114 @@
         ];
 
 
-        (function($$){
+        (function($){
             var header = null;
             var navigation = null;
+            var mainNav = null;
+            var mainNavItem = null;
+            var subNav = null;
+            var subNavItem = null;
+
+            var mainOverItem = null;
+            var mainClickItem = null;
+            var subOverItem = null;
+            var subClickItem = null;
 
             function init() {
-                header = $$('.header');
-                navigation = $$('.navigation');
+                header = $('.header');
+                navigation = $('.navigation');
+                mainNav = $('.main-nav');
+                mainNavItem = mainNav.find('.main-nav-item');
+                subNav = $('.sub-nav');
+                subNavItem = subNav.find('.sub-nav-item');
             }
             
             function initEventListener() {
-                navigation.on('mouseenter', function() {
-                    header.addClass('on');
-                });
+                // navigation.on('mouseenter', function() {
+                //     header.addClass('on');
+                // });
+
                 navigation.on('mouseleave', function() {
-                    header.removeClass('on');
+                    if (subOverItem !== null) {
+                        subOverItem.removeClass('on');
+                    }
+                    if (subClickItem !== null) {
+                        subClickItem.addClass('on');
+                    }
+                    if (mainOverItem !== null) {
+                        mainOverItem.removeClass('on');
+                    }
+                    if (mainClickItem !== null) {
+                        mainClickItem.addClass('on');
+                    }
+
+                    // header.removeClass('on');
                 });
+               
                 navigation.on('mousewheel', function(e) {
                     e.preventDefault();
-                })
-                $$(window).on('scroll', function() {
-                    console.log($$(this).scrollTop());
-                    if ($$(this).scrollTop() > 100) {
+                });
+                $(window).on('scroll', function() {
+                    console.log($(this).scrollTop());
+                    if ($(this).scrollTop() > 100) {
                         header.addClass('scroll');
                     } else {
                         header.removeClass('scroll');
                     }
                 });
+
+                mainNavItem.on('mouseenter', function() {
+                    if (mainOverItem !== null) {
+                        mainOverItem.removeClass('on');
+                    }
+                    if (mainClickItem !== null) {
+                        mainClickItem.removeClass('on');
+                    }
+                    if (subOverItem !== null) {
+                        subOverItem.removeClass('on');
+                    }
+                    if (subClickItem !== null) {
+                        subClickItem.removeClass('on');
+                    }
+
+                    $(this).addClass('on');
+
+                    mainOverItem = $(this);
+                });
+                mainNavItem.find('a').on('click', function() {
+                    
+
+                    $(this).parent().addClass('on');
+
+                    mainClickItem = $(this).parent();
+                    subClickItem = $(this).next('.sub-nav').find('.sub-nav-item').eq(0).addClass('on');
+                });
+
+                subNavItem.on('mouseenter', function() {
+                    if (subOverItem !== null) {
+                        subOverItem.removeClass('on');
+                    }
+                    if (subClickItem !== null) {
+                        subClickItem.removeClass('on');
+                    }
+
+                    $(this).addClass('on');
+
+                    subOverItem = $(this);
+                });
+
+                subNavItem.on('click', function() {
+                    $(this).addClass('on');
+                    $(this).closest('.main-nav-item').addClass('on');
+
+                    subClickItem = subOverItem;
+                    mainClickItem = mainOverItem;
+                });
+                
+                
             }
             
-            $$(document).ready(function() {
+            $(document).ready(function() {
                 init();
                 initEventListener();
             });
